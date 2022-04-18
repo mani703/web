@@ -18,7 +18,7 @@ local.properties
 **/.classpath
 **/build/
 Servers
-/web02/WebContent/META-INF
+*/WebContent/META-INF
 
 # External tool builders
 .externalToolBuilders/
