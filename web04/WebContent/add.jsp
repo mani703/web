@@ -32,6 +32,7 @@
 					if(param.equals("number01")) errMsg = "숫자를 입력하세요";
 				}
 				%>
+				
 				<form action="insert.jsp">
 					<table align="center" cellspacing="10">
 						<tr>
