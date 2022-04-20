@@ -27,9 +27,9 @@
 				<h1>List Page</h1>
 				<table border="1" width="80%" align="center">
 					<tr>
-						<td width="100">deptno</td>
-						<td width="50%">dname</td>
-						<td>loc</td>
+						<td width="100" bgcolor="grey"><a href="list.jsp?by=_id">deptno</a></td>
+						<td width="50%" bgcolor="grey"><a href="list.jsp?by=dname">dname</a></td>
+						<td bgcolor="grey"><a href="list.jsp?by=loc">loc</a></td>
 					</tr>
 				
 <%
@@ -37,18 +37,18 @@
  	int port = 27017;
 
  	MongoClient client = new MongoClient(new ServerAddress(ip, port));
- //java.util.List<String> names = client.getDatabaseNames();
- //for(int i=0; i<names.size(); i++){
- //	System.out.println(names.get(i));
- //}
  	DB db = client.getDB("testDB");
- //java.util.Set<String> colls = db.getCollectionNames();
- //Iterator ite = colls.iterator();
- //while(ite.hasNext()){
- //	System.out.println(ite.next());
- //}
+
  	DBCollection coll = db.getCollection("dept02");
- 	DBCursor cursor = coll.find();
+ 	String keyword = request.getParameter("keyword");
+ 	if(keyword == null) keyword = "";
+ 	String by = request.getParameter("by");
+ 	if(by == null) by = "_id";
+ 	BasicDBObject orderBy = new BasicDBObject(by, 1);
+ 	
+ 	BasicDBObject doc = new BasicDBObject("dname", new BasicDBObject("$regex", keyword));
+ 	
+ 	DBCursor cursor = coll.find(doc).sort(orderBy);
  	while (cursor.hasNext()) {
  		DBObject obj = cursor.next();
  		out.println("<tr>");
@@ -60,7 +60,13 @@
 
  	client.close();
  %>
- 				</table> 
+ 				</table>
+ 				<p>
+ 					<form>
+ 						<input type="text" name="keyword">
+ 						<input type="submit" value="검 색">
+ 					</form>
+ 				</p>
  				<p align="center">
  					<a href="add.jsp">[입 력]</a>
  				</p>
