@@ -53,8 +53,6 @@ try{
 	
 	response.sendRedirect("list.jsp");
 } catch(NumberFormatException e) {
-	//out.println("<h1 align='center'>오류발생</h1>");
-	//out.println("<p align='center'>계속된 문제가 발생시 전산관리자(tel 000-0000)에 연락바랍니다.</p>");
 	response.sendRedirect("add.jsp?err=number01");
 }
 %>
