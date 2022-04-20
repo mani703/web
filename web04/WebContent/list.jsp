@@ -52,9 +52,9 @@
  	while (cursor.hasNext()) {
  		DBObject obj = cursor.next();
  		out.println("<tr>");
- 		out.print("<td>" + obj.get("_id") + "</td>");
- 		out.print("<td>" + obj.get("dname") + "</td>");
- 		out.println("<td>" + obj.get("loc") + "</td>");
+ 		out.print("<td><a href=\"dept.jsp?deptno=" + obj.get("_id") + "\">" + obj.get("_id") + "</a></td>");
+ 		out.print("<td><a href=\"dept.jsp?deptno=" + obj.get("_id") + "\">" + obj.get("dname") + "</a></td>");
+ 		out.print("<td><a href=\"dept.jsp?deptno=" + obj.get("_id") + "\">" + obj.get("loc") + "</a></td>");
  		out.println("</tr>");
  	}
 
