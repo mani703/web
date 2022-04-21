@@ -12,26 +12,17 @@
 <title>Insert title here</title>
 </head>
 <body bgcolor="#dddddd">
-<table width="800" align="center" bgcolor="white">
-	<tr>
-		<td><img alt="" src="../imgs/logo.jpg"></td>
-	</tr>
-	<tr>
-		<td bgcolor="grey" align="center">
-			<a href="../index.jsp">[HOME]</a>
-			<a href="dept/list.jsp">[DEPT]</a>
-			<a href="../emp/list.jsp">[EMP]</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
+<%
+String myPath="..";
+%>
+		<%@ include file="../template/header.jspf" %>
 			<!-- content start -->
 			<h1>DEPT List</h1>
-			<table width="500" align="center">
+			<table width="500" align="center" border="1">
 				<tr>
-					<td>deptno</td>
-					<td>dname</td>
-					<td>loc</td>
+					<th>deptno</th>
+					<th>dname</th>
+					<th>loc</th>
 				</tr>
 				<%@ page import="com.mongodb.*" %>
 				<%
@@ -41,34 +32,30 @@
 				// DBCollection coll = db.getCollection("dept02");
 				
 				MongoClient client = new MongoClient();
-				MongoDatabase db = null;
-				db = client.getDatabase("testDB");
-				MongoCollection<Document> coll = null;
-				coll = db.getCollection("dept02");
-				
-				FindIterable<Document> ite = coll.find();
-				MongoCursor<Document> cursor = ite.iterator();
-				while(cursor.hasNext()) {
-					 Document obj = cursor.next();	
-				%>
-				<tr>
-					<td><%=obj.get("_id") %></td>
-					<td><%=obj.get("dname") %></td>
-					<td><%=obj.get("loc") %></td>
-				</tr>
-				<%
+				try {
+					MongoDatabase db = null;
+					db = client.getDatabase("testDB");
+					MongoCollection<Document> coll = null;
+					coll = db.getCollection("dept02");
+					
+					FindIterable<Document> ite = coll.find();
+					MongoCursor<Document> cursor = ite.iterator();
+					while(cursor.hasNext()) {
+						 Document obj = cursor.next();	
+					%>
+					<tr>
+						<td><%=obj.getInteger("_id", 0) %></td>
+						<td><%=obj.getString("dname") %></td>
+						<td><%=obj.getString("loc") %></td>
+					</tr>
+					<%
+					}
+				} finally {
+					client.close();
 				}
-				client.close();
 				%>
 			</table>
-			<!-- content end -->
-		</td>
-	</tr>
-	<tr>
-		<td bgcolor="#cccccc" align="center">
-		Copyright by bitacademy co.ltd
-		</td>
-	</tr>
-</table>
+			<p align="center"><a href="add.jsp">[입 력]</a></p>
+		<%@ include file="../template/footer.jspf" %>
 </body>
 </html>
