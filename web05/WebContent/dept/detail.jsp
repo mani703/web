@@ -13,6 +13,7 @@
 	<%@ page import="com.mongodb.client.*" %>
 	<%@ page import="org.bson.*" %>
 	<%@ page import="org.bson.conversions.Bson" %>
+	<%@ page import="com.mongodb.client.model.Filters"%>
 	<%
 	int deptno = Integer.parseInt(request.getParameter("deptno"));
 	String dname = null;
@@ -24,9 +25,11 @@
 		MongoDatabase db = client.getDatabase("testDB");
 		MongoCollection<Document> coll = db.getCollection("dept02");
 		
-		//Bson filter = new Document();
-		Document filter = new Document();
-		filter.append("_id", deptno);
+		//Document filter = new Document();
+		//filter.append("_id", deptno);
+		// templateMethod 디자인패턴
+		//Bson filter = Filters.and(Filters.eq("_id", deptno), Filters.eq("dname", dname));
+		Bson filter = Filters.eq("_id", deptno);
 		MongoCursor<Document> cur = coll.find(filter).iterator();
 		if(cur.hasNext()){
 			Document doc = cur.next();
@@ -55,12 +58,16 @@
 				<td><input type="text" name="loc" value="<%=loc %>" readonly></td>
 			</tr>
 			<tr>
-				<td colspan="2"></td>
+				<td colspan="2" align="center">
 					<input type="submit" value="수 정">
-				<td></td>
+	</form>
+					<form action="delete.jsp" method="post">
+						<input type="hidden" name="deptno" value="<%=deptno %>">
+						<input type="submit" value="삭 제">
+					</form>
+				</td>
 			</tr>
 		</table>
-	</form>
 	<%@ include file="../template/footer.jspf" %>
 </body>
 </html>

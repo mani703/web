@@ -32,21 +32,26 @@ String myPath="..";
 				// DBCollection coll = db.getCollection("dept02");
 				
 				MongoClient client = new MongoClient();
+				int p = 1;
+				try {
+					p = Integer.parseInt(request.getParameter("p"));
+				} catch(NumberFormatException e) {}
+				
 				try {
 					MongoDatabase db = null;
 					db = client.getDatabase("testDB");
 					MongoCollection<Document> coll = null;
 					coll = db.getCollection("dept02");
 					
-					FindIterable<Document> ite = coll.find();
+					FindIterable<Document> ite = coll.find().skip(5*(p-1)).limit(5);
 					MongoCursor<Document> cursor = ite.iterator();
 					while(cursor.hasNext()) {
 						 Document obj = cursor.next();	
 					%>
 					<tr>
-						<td><%=obj.getInteger("_id", 0) %></td>
-						<td><%=obj.getString("dname") %></td>
-						<td><%=obj.getString("loc") %></td>
+						<td><a href="detail.jsp?deptno=<%=obj.getInteger("_id", 0) %>"><%=obj.getInteger("_id", 0) %></a></td>
+						<td><a href="detail.jsp?deptno=<%=obj.getInteger("_id", 0) %>"><%=obj.getString("dname") %></a></td>
+						<td><a href="detail.jsp?deptno=<%=obj.getInteger("_id", 0) %>"><%=obj.getString("loc") %></a></td>
 					</tr>
 					<%
 					}
