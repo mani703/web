@@ -26,6 +26,7 @@ try{
     	</row>
     <%
     }
+    
 }finally{
 	if(rs!=null)rs.close();
 	if(stmt!=null)stmt.close();
