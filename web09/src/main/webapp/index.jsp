@@ -124,6 +124,19 @@
 	<script type="text/javascript" src="js/jquery.bxslider.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
+		var addEvent = function(e){
+			var param = $(e.target).serialize();
+			addList(param);
+			return false;
+		};
+		var detailEvent = function(e){
+			$(e.target).prev().text('수정페이지');
+			$(e.target).find('input').each(function(idx, ele){
+				if(idx != 0) $(ele).removeProp('readonly');
+			});
+			return false;
+		}
+		
 		$('#popup').hide();
 		
 		$('#bx>ul').bxSlider({
@@ -137,16 +150,50 @@
 			prevText: '<'
 		});
 		
+		var getOne = function(empno){
+			$('#popup').find('h2').text('상세페이지');
+			$('#popup').find('button').first().text('수정');
+			$('#popup').find('input').prop('readonly', true);
+			$.getJSON('bbs/detail.jsp','empno='+empno, function(data){
+				$('#popup').find('input').eq(0).val(data.root[0].empno);
+				$('#popup').find('input').eq(1).val(data.root[0].ename);
+				$('#popup').find('input').eq(2).val(data.root[0].sal);
+				
+			});
+			$('#popup form').off('submit', addEvent);
+			$('#popup form').on('submit', detailEvent);
+			$('#popup').show();
+		}
+		
 		var getList = function(){
 			$('#list-group').html('<div><span>ename</span></div>');
 			$.getJSON('bbs/list.jsp', function(data){
 				data.root.forEach(function(ele, idx){
+					var alink = $('<a/>').text(ele.ename).attr('href', '#');
+					alink.click(function(){
+						getOne(ele.empno);
+						return false;
+					});
 					$('<div/>')
-						.append($('<a/>').text(ele.ename).attr('href', '#'))
+						.append(alink)
 						.appendTo('#list-group');
 				});
 			});
 		}
+		var addList = function(param){
+			$.ajax({
+				url: 'bbs/insert.jsp',
+				data: param,
+				type: 'post',
+				error: function(xhr, status, errmsg){
+					$('#popup h2').before('<div class="err">에러발생(' + b + ')</div>');
+				},
+				success: function(param){
+						$('#menu a').eq(2).click();
+						$('#popup').click();
+					}
+			});
+		};
 		
 		var menu1Click = function(){
 			$('#content>.row').hide().eq(0).show();
@@ -172,11 +219,13 @@
 		
 		$('#popup>div').click(function(e){
 			e.stopPropagation();
-			console.log('form...');
 		});
 		$('#popup').add('#popup form button:eq(2)').click(function(e){
 			$('#popup form input').val('');
 			$('#popup .err').remove();
+			$('#popup').find('h2').text('입력페이지');
+			$('#popup').find('button').first().text('입력');
+			$('#popup').find('input').removeProp('readonly');
 			$('#popup').hide();
 		});
 		$('#p3>a').click(function(){
@@ -184,25 +233,8 @@
 			return false;
 		});
 		
-		var addList = function(param){
-			$.ajax({
-				url: 'bbs/insert.jsp',
-				data: param,
-				type: 'post',
-				error: function(xhr, status, errmsg){
-					$('#popup h2').before('<div class="err">에러발생(' + b + ')</div>');
-				},
-				success: function(param){
-						$('#menu a').eq(2).click();
-						$('#popup').click();
-					}
-			});
-		};
-		$('#popup form').submit(function(e){
-			var param = $(e.target).serialize();
-			addList(param);
-			return false;
-		});
+		
+		$('#popup form').on('submit', addEvent);
 		
 		$('#menu a').first().click();
 	});
