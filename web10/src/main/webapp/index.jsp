@@ -101,8 +101,8 @@ nav>ul>li>a {
 <body>
 	<nav>
 		<ul>
-			<li><a href="#">HOME</a></li>
-			<li><a href="#">EMP</a></li>
+			<li><a href="index.jsp">HOME</a></li>
+			<li><a href="list.jsp">EMP</a></li>
 			<li><a href="#">DEPT</a></li>
 			<li><a href="#">ETC</a></li>
 		</ul>
