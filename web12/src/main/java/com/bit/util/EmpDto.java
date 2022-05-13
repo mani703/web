@@ -2,8 +2,9 @@ package com.bit.util;
 
 public class EmpDto {
 	private int empno;
-	private String ename;
+	private String ename = "";
 	private int sal;
+	private boolean result;
 	
 	public int getEmpno() {
 		return empno;
@@ -22,5 +23,11 @@ public class EmpDto {
 	}
 	public void setSal(int sal) {
 		this.sal = sal;
+	}
+	public boolean isResult() {
+		return result;
+	}
+	public void setResult(boolean result) {
+		this.result = result;
 	}
 }
