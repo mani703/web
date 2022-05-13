@@ -5,59 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/mygrid.css">
-<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-<style rel="stylesheet" type="text/css">
-body{
-	margin: 0px;
-}
-nav{
-	overflow: hidden;
-	border-bottom: 1px solid gray;
-	margin-bottom: 5px;
-}
-nav>h1{
-	float: left;
-	margin-left: 10px;
-}
-nav>h1>a{
-	display: inline-block;
-	width: 205px;
-	height: 40px;
-	background-image: url("imgs/logo.jpg");
-	text-indent: -9999px;
-}
-nav>ul{
-	list-style: none;
-	padding: 0px;
-	margin-left: 100px;
-	float: left;
-}
-nav>ul>li{
-	float: left;
-	width: 100px;
-	border-right: 5px solid gray;
-}
-nav>ul>li>a{
-	display: block;
-	height: 40px;
-	color: gray;
-	text-decoration: none;
-	font-size: 20pt;
-	text-align: center;
-}
-.row img{
-	width: 100%;
-}
-#footer{
-	margin-top: 100px;
-	background-image: url("imgs/logo.jpg");
-	background-repeat: no-repeat;
-	height: 80px;
-	text-indent: 250px;
-}
-</style>
-
+<jsp:include page="template/head.jsp"></jsp:include>
 <script type="text/javascript">
 
 </script>
@@ -65,12 +13,21 @@ nav>ul>li>a{
 <body>
 <nav>
 	<h1><a href="./">비트교육센터</a></h1>
+	<jsp:useBean id="login" class="com.bit.util.EmpDto" scope="session"></jsp:useBean>
 	<ul>
 		<li><a href="./">HOME</a></li>
 		<li><a href="intro.jsp">INTRO</a></li>
 		<li><a href="emp/">LIST</a></li>
+		<%if(login.isResult()){%>
+		<li><a href="login/logout.jsp">LOGOUT</a></li>
+		<%}else{ %>		
 		<li><a href="login/form.jsp">LOGIN</a></li>
+		<%} %>		
 	</ul>
+	
+	<%if(login.isResult()){%>
+		<span><jsp:getProperty property="ename" name="login"/>님 로그인 중..</span>
+	<%} %>
 </nav>
 <div class="container">
 	<div class="row">
