@@ -13,8 +13,7 @@
 </script>
 </head>
 <%@page import="java.sql.*,com.bit.util.*,java.util.*" %>
-<%!
-Connection conn;
+<%!Connection conn;
 Statement stmt;
 ResultSet rs;
 
@@ -40,9 +39,7 @@ public List<EmpDto> getList() throws SQLException{
 	}
 	
 	return list;
-}
-
-%>
+}%>
 <body>
 <nav>
 	<h1><a href="../">비트교육센터</a></h1>
@@ -51,16 +48,26 @@ public List<EmpDto> getList() throws SQLException{
 		<li><a href="../">HOME</a></li>
 		<li><a href="../intro.jsp">INTRO</a></li>
 		<li><a href="./">LIST</a></li>
-		<%if(login.isResult()){%>
+		<%
+		if(login.isResult()){
+		%>
 		<li><a href="../login/logout.jsp">LOGOUT</a></li>
-		<%}else{ %>		
+		<%
+		}else{
+		%>		
 		<li><a href="../login/form.jsp">LOGIN</a></li>
-		<%} %>		
+		<%
+		}
+		%>		
 	</ul>
 	
-	<%if(login.isResult()){%>
+	<%
+		if(login.isResult()){
+		%>
 		<span><jsp:getProperty property="ename" name="login"/>님 로그인 중..</span>
-	<%} %>
+	<%
+	}
+	%>
 </nav>
 <div class="container">
 	<div class="row">
@@ -68,7 +75,9 @@ public List<EmpDto> getList() throws SQLException{
 		<!-- content start -->
 		<h2>리스트 페이지</h2>
 		<div class="table">
-		<%for(EmpDto bean : getList()){ %>
+		<%
+		for(EmpDto bean : getList()){
+		%>
 			<div>
 				<a href="detail.jsp?empno=<%=bean.getEmpno() %>">
 					<span><%=bean.getEmpno() %></span>

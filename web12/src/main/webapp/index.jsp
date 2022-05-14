@@ -22,16 +22,26 @@
 		<li><a href="./">HOME</a></li>
 		<li><a href="intro.jsp">INTRO</a></li>
 		<li><a href="emp/">LIST</a></li>
-		<%if(login.isResult()){%>
+		<%
+		if(login.isResult()){
+		%>
 		<li><a href="login/logout.jsp">LOGOUT</a></li>
-		<%}else{ %>		
+		<%
+		}else{
+		%>		
 		<li><a href="login/form.jsp">LOGIN</a></li>
-		<%} %>		
+		<%
+		}
+		%>		
 	</ul>
 	
-	<%if(login.isResult()){%>
+	<%
+		if(login.isResult()){
+		%>
 		<span><jsp:getProperty property="ename" name="login"/>님 로그인 중..</span>
-	<%} %>
+	<%
+	}
+	%>
 </nav>
 <div class="container">
 	<div class="row">

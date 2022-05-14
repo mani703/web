@@ -13,9 +13,8 @@
 
 </script>
 </head>
-<%@ page import="java.sql.*, com.bit.util.*" %>
-<%!
-Connection conn;
+<%@ page import="java.sql.*,com.bit.util.*" %>
+<%!Connection conn;
 Statement stmt;
 
 public void insertOne(int empno, String ename, int sal) throws SQLException{
@@ -42,8 +41,7 @@ public void insertOne(EmpDto bean) throws SQLException{
 		if(stmt != null) stmt.close();
 		if(conn != null) conn.close();
 	}
-}
-%>
+}%>
 <jsp:useBean id="bean" class="com.bit.util.EmpDto"></jsp:useBean>
 <jsp:setProperty property="empno" name="bean"/>
 <jsp:setProperty property="ename" name="bean"/>

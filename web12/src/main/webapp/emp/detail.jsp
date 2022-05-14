@@ -56,8 +56,8 @@ if(request.getMethod().equals("GET")){
 		stmt=conn.createStatement();
 		rs=stmt.executeQuery(sql);
 		if(rs.next()){
-			bean.setEname(rs.getString("ename"));
-			bean.setSal(rs.getInt("sal"));
+	bean.setEname(rs.getString("ename"));
+	bean.setSal(rs.getInt("sal"));
 		}
 	}finally{
 		if(rs!=null) rs.close();
@@ -66,7 +66,7 @@ if(request.getMethod().equals("GET")){
 	}
 }else{
 	String sql="update emp set ename='"+bean.getEname()
-			+"',sal="+bean.getSal()+" where empno="+bean.getEmpno();
+	+"',sal="+bean.getSal()+" where empno="+bean.getEmpno();
 	try{
 		conn=DBServer.getConnection();
 		stmt=conn.createStatement();
