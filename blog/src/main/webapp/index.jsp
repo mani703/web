@@ -190,7 +190,7 @@
             <div class="introduce">
                 <div class="ititle">PROFILE</div>
                 <div class="icompo">
-                    <p>이름&emsp;&emsp;<span class="name">유명만</span></p><br />
+                    <p>이름&emsp;&emsp;<span class="name">유ㅇㅇ</span></p><br />
                     <p>나이&emsp;&emsp;<span class="age">29세</span></p><br />
                     <p>주소&emsp;&emsp;<span class="address">부산 북구 화명신도시로194</span></p>
                 </div>
@@ -199,7 +199,7 @@
             <div class="education">
                    <div class="etitle">EDUCATION</div>
                    <div class="ecompo">
-                       <p>2010.03</br>~2013.02 <span class="high">화명고등학교 졸업</span></p>
+                       <p>2010.03</br>~2013.02 <span class="high">ㅇㅇ고등학교 졸업</span></p>
                        <p>2013.03</br>~2019.08 <span class="uni">컴퓨터공학과 졸업</span></p>
                    </div>
                </div>

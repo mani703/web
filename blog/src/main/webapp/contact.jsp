@@ -366,7 +366,7 @@
 				<h2>수정</h2>
 				<div>
 					<label for="deptno">번호</label> 
-					<input type="text" name="deptno" id="deptno"/>
+					<input type="text" name="deptno" id="deptno" readonly/>
 				</div>
 				<div>
 					<label for="dname">내용</label> 
