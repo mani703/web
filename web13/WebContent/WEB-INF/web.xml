@@ -30,6 +30,14 @@
   	<servlet-name>ex08</servlet-name>
   	<servlet-class>com.bit.controller.Step08</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ex11</servlet-name>
+  	<servlet-class>com.bit.controller.Ex11</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ex11</servlet-name>
+  	<url-pattern>/ex11.html</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>ex01</servlet-name>
   	<url-pattern>/ex01.html</url-pattern>
