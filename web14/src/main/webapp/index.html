@@ -15,11 +15,25 @@
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
+$(window).on('popstate', function(e){
+	if(location.hash == '' || location.hash == '#home'){
+		$('.navbar a').eq(0).click();
+	}else if(location.hash == '#emp'){
+		$('.navbar a').eq(1).click();
+	}
+});
 var popup2;
 var popup2Init=function(){
 	popup2.find('input').prop('readonly',true);
 	popup2.find('button').eq(1).html("수정").one('click',function(e){
 		popup2.find('input').filter(':gt(0)').removeProp('readonly');
+		return false;
+	});
+	popup2.find('button').eq(2).html("삭제").toggleClass('btn-default').addClass('btn-danger').one('click',function(e){
+		$.post('api/empDel.json', 'empno=' + popup2.find('input:eq(0)').val(), function(){
+			popup2.modal('hide');
+			$('.navbar a').eq(1).click();
+		});
 		return false;
 	});
 };
