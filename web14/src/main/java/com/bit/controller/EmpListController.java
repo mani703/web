@@ -19,8 +19,8 @@ public class EmpListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("application/json;charset=utf-8");
-		PrintWriter pw=resp.getWriter();
+		resp.setContentType("application/json; charset=utf-8");
+		PrintWriter pw = resp.getWriter();
 		pw.println("{\"emp\":[");
 		String sql="select * from emp";
 		try(
