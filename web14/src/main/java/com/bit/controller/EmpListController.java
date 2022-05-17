@@ -19,33 +19,35 @@ public class EmpListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("application/json;");
-		PrintWriter pw = resp.getWriter();
+		resp.setContentType("application/json;charset=utf-8");
+		PrintWriter pw=resp.getWriter();
+		pw.println("{\"emp\":[");
 		String sql="select * from emp";
-		pw.println("{\"emp\": [");
-		
 		try(
 				Connection conn=BitMy.getConnection();
 				Statement stmt=conn.createStatement();
 				ResultSet rs=stmt.executeQuery(sql);
 		){
 			while(rs.next()) {
-				if(!rs.isFirst()) pw.println(",");
+				if(!rs.isFirst())pw.print(',');
 				EmpDto bean=new EmpDto();
 				bean.setEmpno(rs.getInt("empno"));
 				bean.setEname(rs.getString("ename"));
 				bean.setSal(rs.getInt("sal"));
-				
+
 				pw.print("{");
-				pw.print("\"empno\":" + bean.getEmpno());
-				pw.print(",\"ename\":\"" + bean.getEname() + "\"");
-				pw.print(",\"sal\":" + bean.getSal());
-				pw.print("}");
+				pw.print("\"empno\":"+bean.getEmpno());
+				pw.print(",\"ename\":\""+bean.getEname()+"\"");
+				pw.print(",\"sal\":"+bean.getSal());
+				pw.println("}");
 			}
 		} catch (SQLException e) {
 					e.printStackTrace();
 				}
-		pw.println();
+
 		pw.println("]}");
 	}
 }
+
+
+
