@@ -22,7 +22,7 @@ public class EmpOneController extends HttpServlet {
 		String sql="select * from emp where empno="+empno;
 		
 		resp.setContentType("application/json; charset=utf-8");
-		PrintWriter pw=resp.getWriter();
+		PrintWriter pw = resp.getWriter();
 		pw.print("{\"emp\":[{");
 		try(
 			Connection conn=BitMy.getConnection();
