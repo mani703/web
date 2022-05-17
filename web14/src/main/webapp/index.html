@@ -15,48 +15,71 @@
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
+var popup2;
+var popup2Init=function(){
+	popup2.find('input').prop('readonly',true);
+	popup2.find('button').eq(1).html("수정").one('click',function(e){
+		popup2.find('input').filter(':gt(0)').removeProp('readonly');
+		return false;
+	});
+};
 $(function(){
+	popup2=$('#myModal').clone();
+	popup2.find('h4').html('상세페이지');
+	popup2.find('form').submit(function(e){
+		e.preventDefault();
+		var param=$(e.target).serialize();
+		console.log('수정',param);
+	});
+	
+	
 	$('.carousel').carousel({
 		  interval: 2000
 	});
-	
 	$('#content>div').hide().first().show();
-	
 	$('.navbar a').first().click(function(e){
 		//e.preventDefault();
 		$('#content>div').hide().filter('#p1').show();
 	});
-	
 	$('.navbar a').eq(1).click(function(e){
 		//e.preventDefault();
 		$('#content>div').hide().filter('#p2').show();
-		$.getJSON('api/emps.json', function(data){
+		$.getJSON('api/emps.json',function(data){
 			$('#p2 table>tbody').empty();
-			$(data.emp).each(function(idx, ele){
-				var row = ele;
+			$(data.emp).each(function(idx,ele){
+				var row=ele;
 				$('<tr/>')
-					.append('<td><a href="#' + row.empno + '">' + row.empno + "</a></td>")
-					.append('<td><a href="#' + row.empno + '">' + row.ename + "</a></td>")
-					.append('<td><a href="#' + row.empno + '">' + row.sal + "</a></td>")
-					.appendTo('#p2 table>tbody');
+					.append('<td><a href="#'+row.empno+'">'+row.empno+'</a></td>')
+					.append('<td><a href="#'+row.empno+'">'+row.ename+'</a></td>')
+					.append('<td><a href="#'+row.empno+'">'+row.sal+'</a></td>')
+					.appendTo('#p2 table>tbody')
+					.find('a').click(function(e){
+						var num=e.target.href.substr('http://localhost:8080/web14/#'.length);
+						$.getJSON('api/emp.json?empno='+num,function(data){
+							popup2.modal('show');
+							popup2Init();
+							popup2.find('input').eq(0).val(num);
+							popup2.find('input').eq(1).val(data.emp[0].ename);
+							popup2.find('input').eq(2).val(data.emp[0].sal);
+														
+						});
+					});
 			});
 		});
 	});
-	
 	$('#myModal form').submit(function(e){
 		e.preventDefault();
 		$('#myModal h4').html('입력페이지');
-		var param = $(e.target).serialize();
-		$.post('api/addemp.json', param, function(data){
+		var param=$(e.target).serialize();
+		$.post('api/addemp.json',param,function(data){
 			if(data.insert[0].result){
-				$('#myModal').modal('hide');
+				$('#myModal').modal('hide');		
 				$('.navbar a').eq(1).click();
 				$('#myModal input').val('');
 			}else{
-				$('#myModal h4').html('입력 페이지 <small>' + data.insert[0].err + '</samll>');
+				$('#myModal h4').html('입력페이지<small>'+data.insert[0].err+'</small>');
 			}
-		}, 'json');		
-		
+		},'json');
 	});
 });
 </script>
@@ -122,7 +145,6 @@ $(function(){
 </div>
 
 
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -132,8 +154,7 @@ $(function(){
         <h4 class="modal-title" id="myModalLabel">입력 페이지</h4>
       </div>
       <div class="modal-body">
-      
-      	<form action="#add">
+      	<form action="#add" method="post">
       		<div class="form-group">
       			<label for="empno">empno</label>
       			<input class="form-control" type="text" name="empno" id="empno" placeholder="empno" />
@@ -152,12 +173,12 @@ $(function(){
       			<button class="btn btn-default" type="button" data-dismiss="modal">뒤로</button>
       		</div>
       	</form>
-      	
+      </div>
+      <div class="modal-footer">
       </div>
     </div>
   </div>
 </div>
-
 </body>
 </html>
 
