@@ -4,4 +4,46 @@
   <welcome-file-list>
   	<welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>index</servlet-name>
+  	<servlet-class>com.bit.controller.IndexController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>empList</servlet-name>
+  	<servlet-class>com.bit.controller.EmpListController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>addEmp</servlet-name>
+  	<servlet-class>com.bit.controller.EmpAddController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>oneEmp</servlet-name>
+  	<servlet-class>com.bit.controller.EmpOneController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>editEmp</servlet-name>
+  	<servlet-class>com.bit.controller.EmpEditController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>index</servlet-name>
+  	<url-pattern>/index.html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>empList</servlet-name>
+  	<url-pattern>/emp/list.html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>addEmp</servlet-name>
+  	<url-pattern>/emp/add.html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>oneEmp</servlet-name>
+  	<url-pattern>/emp/detail.html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>editEmp</servlet-name>
+  	<url-pattern>/emp/edit.html</url-pattern>
+  </servlet-mapping>
 </web-app>
