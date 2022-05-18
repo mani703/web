@@ -38,7 +38,13 @@ $(function(){
 								href="../dept/list.html" class="btn btn-default">DEPT</a>
 						</p>
 						<p class="navbar-text navbar-right">
-							<a href="../login/index.html" class="btn">LOGIN</a>
+							<% if(session.getAttribute("result") != null) {
+								out.print(session.getAttribute("id").toString() + " 님 로그인 중...");
+							%>
+								<a href="../login/index.html" class="btn">LOGOUT</a>
+							<%} else{ %>
+								<a href="../login/index.html" class="btn">LOGIN</a>
+							<% } %>
 						</p>
 					</div>
 				</nav>
