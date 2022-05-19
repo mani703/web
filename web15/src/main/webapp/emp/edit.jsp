@@ -59,7 +59,7 @@ $(function(){
 					</h1>
 				</div>
 				<%
-				com.bit.model.EmpDto bean = (com.bit.model.EmpDto)request.getAttribute("emp");
+					com.bit.model.EmpDto bean = (com.bit.model.EmpDto)request.getAttribute("emp");
 				%>
 
 				<form method="post">
